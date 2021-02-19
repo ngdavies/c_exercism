@@ -2,16 +2,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-
-resistor_mag_t pow10(uint16_t y) {
-  // Use my own integer power function
-  resistor_mag_t res = 1;
-  for (uint16_t i=0; i<y; i++) {
-    res *= 10;
-  }
-  return res;
-}
-
 resistor_value_t color_code(resistor_band_t colors[]) {
   resistor_value_t value;
   resistor_mag_t mag;
