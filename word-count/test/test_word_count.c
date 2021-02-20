@@ -38,6 +38,7 @@ static void check_solution(word_count_word_t * expected_solution,
 // Tests Start here
 static void test_count_one_word(void)
 {
+    TEST_IGNORE();
    int index = 0;
    int actual_word_count;
    char *input_text = "word";
@@ -59,7 +60,7 @@ static void test_count_one_word(void)
 
 static void test_count_one_of_each_word(void)
 {
-   TEST_IGNORE();               // delete this line to run test
+    TEST_IGNORE();
    int index = 0;
    int actual_word_count;
    char *input_text = "one of each";
@@ -87,7 +88,6 @@ static void test_count_one_of_each_word(void)
 
 static void test_multiple_occurrences_of_a_word(void)
 {
-   TEST_IGNORE();
    int index = 0;
    int actual_word_count;
    char *input_text = "one fish two fish red fish blue fish";

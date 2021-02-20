@@ -17,7 +17,6 @@
 size_t find_word(const char* word, word_count_word_t* words) {
     for (size_t index = 0; index < MAX_WORDS; index++) {
         if (strcmp(word, words[index].text) == 0) {
-            words[index].count += 1;
             return index;
         }
     }
@@ -65,14 +64,16 @@ int count_words(const char *sentence, word_count_word_t * words) {
         if (ch == ' ' || ch == '\0') {
             size_t index = find_word(word, words);
             if (index > MAX_WORDS) {
+                // Not found, add new word
                 strcpy(words[count].text, word);
                 words[count].count = 1;
                 count++;
-                iw = 0;
-                memset(word, 0, (lenc+1*sizeof(char)));
             } else {
+                // Seen word before, increase the count
                 words[index].count += 1;
             }
+            iw = 0;
+            memset(word, 0, (lenc+1*sizeof(char)));
         } else {
             // keep building the word
             word[iw++] = ch;
