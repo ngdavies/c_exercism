@@ -33,14 +33,98 @@ size_t find_word(const char* word, word_count_word_t* words) {
 //           returns a negative number if an error.
 //           words will contain the results up to that point.
 int count_words(const char *sentence, word_count_word_t * words) {
-    int count = 0;
     
     if (sentence == NULL || words == NULL) {
         return OTHER_ERRORS;
     }
     
     size_t len = strlen(sentence);
-    char* copy = calloc(len+1, sizeof(char));
+    int count = 0;
+    enum {INIT, SPACE, LETTER, SP2APOS, WD2APOS, ENDNULL} state = INIT;
+    char* word = calloc(len+1, sizeof(char));
+    for (size_t isen=0, iw=0; isen<len+1; isen++) {
+        char ch = sentence[isen];
+        switch (state) {
+            case INIT:
+                if (isalnum(ch)) {
+                    word[iw++] = tolower(ch);
+                    state = LETTER;
+                } else {
+                    state = SPACE;
+                }
+                break;
+                
+            case SPACE:
+                if (ch == '\'') {
+                    state = SP2APOS;
+                }
+                if (isalnum(ch)) {
+                    word[iw++] = tolower(ch);
+                    state = LETTER;
+                }
+                break;
+                
+            case LETTER:
+                if (ch == '\'') {
+                    state = WD2APOS;
+                } else if (isalnum(ch)) {
+                    word[iw++] = tolower(ch);
+                } else {
+                    // End of word, add it to the word count.
+                    size_t index = find_word(word, words);
+                    if (index > MAX_WORDS) {
+                        // Not found, add new word
+                        strcpy(words[count].text, word);
+                        words[count].count = 1;
+                        count++;
+                    } else {
+                        // Seen word before, increase the count
+                        words[index].count += 1;
+                    }
+                    iw = 0;
+                    memset(word, 0, (len+1*sizeof(char)));
+                    state = SPACE;
+                }
+                break;
+                
+            case SP2APOS:
+                if (isalnum(ch)) {
+                    word[iw++] = tolower(ch);
+                    state = LETTER;
+                } else {
+                    state = SPACE;
+                }
+                break;
+                
+            case WD2APOS:
+                // design for a single included ' till tests fail
+                if (isalnum(ch)) {
+                    word[iw++] = '\'';
+                    word[iw++] = tolower(ch);
+                    state = LETTER;
+                } else {
+                    // End of word, add it to the word count.
+                    size_t index = find_word(word, words);
+                    if (index > MAX_WORDS) {
+                        // Not found, add new word
+                        strcpy(words[count].text, word);
+                        words[count].count = 1;
+                        count++;
+                    } else {
+                        // Seen word before, increase the count
+                        words[index].count += 1;
+                    }
+                    iw = 0;
+                    memset(word, 0, (len+1*sizeof(char)));
+                    state = SPACE;
+                }
+                break;
+                
+            case ENDNULL:
+                break;
+        }
+    }
+#if 0
     for (size_t isen=0, icop=0; isen<len; isen++) {
         // copy phrase and keep only alpha numeric. clean up spaces
         char ch = sentence[isen];
@@ -52,11 +136,7 @@ int count_words(const char *sentence, word_count_word_t * words) {
             copy[icop++] = ' ';
         }
     }
-
-    // debug
-    printf("<%s>\n<%s>\n",sentence,copy);
-    // end debug
-
+    
     size_t lenc = strlen(copy);
     char* word = calloc(lenc+1, sizeof(char));
     for (size_t isen=0, iw=0; isen<lenc+1; isen++) {
@@ -79,6 +159,6 @@ int count_words(const char *sentence, word_count_word_t * words) {
             word[iw++] = ch;
         }
     }
-
+#endif
     return count;
 }

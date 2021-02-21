@@ -38,7 +38,7 @@ static void check_solution(word_count_word_t * expected_solution,
 // Tests Start here
 static void test_count_one_word(void)
 {
-    TEST_IGNORE();
+//   TEST_IGNORE();
    int index = 0;
    int actual_word_count;
    char *input_text = "word";
@@ -60,7 +60,7 @@ static void test_count_one_word(void)
 
 static void test_count_one_of_each_word(void)
 {
-    TEST_IGNORE();
+//   TEST_IGNORE();
    int index = 0;
    int actual_word_count;
    char *input_text = "one of each";
@@ -88,7 +88,8 @@ static void test_count_one_of_each_word(void)
 
 static void test_multiple_occurrences_of_a_word(void)
 {
-   int index = 0;
+//   TEST_IGNORE();
+    int index = 0;
    int actual_word_count;
    char *input_text = "one fish two fish red fish blue fish";
    const int expected_word_count = 5;
@@ -120,7 +121,7 @@ static void test_multiple_occurrences_of_a_word(void)
 
 static void test_handles_cramped_lists(void)
 {
-   TEST_IGNORE();
+//   TEST_IGNORE();
    int index = 0;
    int actual_word_count;
    char *input_text = "one,two,three";
@@ -147,7 +148,7 @@ static void test_handles_cramped_lists(void)
 
 static void test_handles_expanded_lists(void)
 {
-   TEST_IGNORE();
+//   TEST_IGNORE();
    int index = 0;
    int actual_word_count;
    char *input_text = "one,\ntwo,\nthree";
@@ -174,7 +175,7 @@ static void test_handles_expanded_lists(void)
 
 static void test_ignore_punctuation(void)
 {
-   TEST_IGNORE();
+//   TEST_IGNORE();
    int index = 0;
    int actual_word_count;
    char *input_text = "car: carpet as java: javascript!!&@$%^&";
@@ -207,7 +208,7 @@ static void test_ignore_punctuation(void)
 
 static void test_include_numbers(void)
 {
-   TEST_IGNORE();
+//   TEST_IGNORE();
    int index = 0;
    int actual_word_count;
    char *input_text = "testing, 1, 2 testing";
@@ -234,7 +235,7 @@ static void test_include_numbers(void)
 
 static void test_normalize_case(void)
 {
-   TEST_IGNORE();
+//    TEST_IGNORE();
    int index = 0;
    int actual_word_count;
    char *input_text = "go Go GO Stop stop";
@@ -258,7 +259,7 @@ static void test_normalize_case(void)
 
 static void test_with_apostrophes(void)
 {
-   TEST_IGNORE();
+//   TEST_IGNORE();
    int index = 0;
    int actual_word_count;
    char *input_text = "First: don't laugh. Then: don't cry.";
@@ -291,7 +292,7 @@ static void test_with_apostrophes(void)
 
 static void test_with_quotations(void)
 {
-   TEST_IGNORE();
+//   TEST_IGNORE();
    int index = 0;
    int actual_word_count;
    char *input_text = "Joe can't tell between 'large' and large.";
@@ -327,7 +328,7 @@ static void test_with_quotations(void)
 
 static void test_substrings_from_the_beginning(void)
 {
-   TEST_IGNORE();
+//   TEST_IGNORE();
    int index = 0;
    int actual_word_count;
    char *input_text = "Joe can't tell between app, apple and a.";
@@ -369,7 +370,7 @@ static void test_substrings_from_the_beginning(void)
 
 static void test_multiple_spaces_not_detected_as_a_word(void)
 {
-   TEST_IGNORE();
+//   TEST_IGNORE();
    int actual_word_count;
    int index = 0;
    char *input_text = " multiple   whitespaces";
@@ -394,7 +395,7 @@ static void test_multiple_spaces_not_detected_as_a_word(void)
 
 static void test_alternating_word_separators_not_detected_as_a_word(void)
 {
-   TEST_IGNORE();
+//   TEST_IGNORE();
    int actual_word_count;
    int index = 0;
    char *input_text = ",\n,one,\n ,two \n 'three'";
